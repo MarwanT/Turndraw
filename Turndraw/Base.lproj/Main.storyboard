@@ -30,6 +30,9 @@
                                                 <state key="normal" title="L">
                                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="drawLeftAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="3sU-Ca-2ih"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0I5-uK-o7k">
                                                 <rect key="frame" x="84" y="0.0" width="76" height="130"/>
@@ -38,6 +41,9 @@
                                                 <state key="normal" title="R">
                                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="drawRightAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="GpP-TC-rnp"/>
+                                                </connections>
                                             </button>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jF8-hT-ein" userLabel="Center">
                                                 <rect key="frame" x="80" y="65" width="0.0" height="0.0"/>
@@ -75,6 +81,9 @@
                                                 <state key="normal" title="U">
                                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="drawUpwordsAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="C8I-ph-17b"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="218-M6-kfO">
                                                 <rect key="frame" x="0.0" y="69" width="160" height="61"/>
@@ -83,6 +92,9 @@
                                                 <state key="normal" title="D">
                                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="drawDownwordsAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Xi7-Z5-a3a"/>
+                                                </connections>
                                             </button>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rMB-e6-0YF">
                                                 <rect key="frame" x="80" y="65" width="0.0" height="0.0"/>
@@ -130,6 +142,12 @@
                             <constraint firstItem="ifz-4v-fzW" firstAttribute="bottom" secondItem="8bC-Xf-vdC" secondAttribute="bottom" id="au9-8p-MZk"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="drawDownwordsButton" destination="218-M6-kfO" id="UON-MS-bZk"/>
+                        <outlet property="drawLeftButton" destination="tGQ-9J-puF" id="jr9-Ra-ZUe"/>
+                        <outlet property="drawRightButton" destination="0I5-uK-o7k" id="bXx-bF-X88"/>
+                        <outlet property="drawUpwordsButton" destination="buI-la-gvA" id="696-2D-HN1"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
