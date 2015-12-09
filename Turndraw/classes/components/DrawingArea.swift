@@ -16,12 +16,28 @@ public class DrawingArea: UIView {
 
   var samplePoints = [CGPoint]()
 
+  let shapeLayer = CAShapeLayer()
+
+  var lastBezierPath: UIBezierPath?
+
 
   public override func awakeFromNib() {
     super.awakeFromNib()
     // Init here
     mainImageView.hidden = true
     tempImageView.hidden = true
+
+    shapeLayer.fillColor = UIColor.clearColor().CGColor;
+    shapeLayer.shouldRasterize = true
+    shapeLayer.rasterizationScale = UIScreen.mainScreen().scale
+    shapeLayer.contentsScale = UIScreen.mainScreen().scale
+    shapeLayer.lineWidth = 3
+    shapeLayer.strokeColor = UIColor.redColor().CGColor
+    shapeLayer.borderWidth = 3
+    shapeLayer.borderColor = UIColor.blackColor().CGColor
+    shapeLayer.drawsAsynchronously = true
+
+    self.layer.insertSublayer(shapeLayer, atIndex: 0)
   }
 
   public override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -40,12 +56,26 @@ public class DrawingArea: UIView {
   }
 
   public override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-    UIGraphicsBeginImageContextWithOptions(bounds.size, false, 0)
+//    UIGraphicsBeginImageContextWithOptions(bounds.size, false, 0)
+//
+//    drawViewHierarchyInRect(bounds, afterScreenUpdates: true)
+//    drawImage = UIGraphicsGetImageFromCurrentImageContext()
+//
+//    UIGraphicsEndImageContext()
 
-    drawViewHierarchyInRect(bounds, afterScreenUpdates: true)
-    drawImage = UIGraphicsGetImageFromCurrentImageContext()
 
-    UIGraphicsEndImageContext()
+    if let drawnPath = shapeLayer.path,
+    let lastBezierPath = lastBezierPath {
+      let tempBezierPath = UIBezierPath(CGPath: drawnPath)
+      tempBezierPath.appendPath(lastBezierPath)
+      shapeLayer.path = tempBezierPath.CGPath
+      shapeLayer.lineWidth = tempBezierPath.lineWidth
+      shapeLayer.lineWidth = 3
+      shapeLayer.borderWidth = 3
+      shapeLayer.borderColor = UIColor.blackColor().CGColor
+    } else {
+      shapeLayer.path = lastBezierPath?.CGPath
+    }
 
     samplePoints.removeAll(keepCapacity: false)
   }
@@ -68,7 +98,7 @@ public class DrawingArea: UIView {
     path.lineCapStyle = CGLineCap.Round
     path.lineWidth = 3
 
-    drawImage?.drawInRect(bounds)
+//    drawImage?.drawInRect(bounds)
 
     if samplePoints.count > 0 {
       path.moveToPoint(samplePoints.first!)
@@ -82,6 +112,12 @@ public class DrawingArea: UIView {
       path.addLineToPoint(samplePoints.last!)
 
       path.stroke()
+
+      lastBezierPath = path
     }
+  }
+
+  public func changeWidth() {
+    shapeLayer.lineWidth += 2
   }
 }

@@ -16,6 +16,8 @@ class ViewController: UIViewController {
   @IBOutlet weak var drawDownwordsButton: UIButton!
   @IBOutlet weak var drawUpwordsButton: UIButton!
 
+  @IBOutlet weak var drawingArea: DrawingArea!
+
   @IBOutlet weak var mainImage: UIImageView!
   @IBOutlet weak var tempDrawImage: UIImageView!
 
@@ -34,6 +36,7 @@ class ViewController: UIViewController {
   @IBAction func drawRightAction(sender: AnyObject) {
   }
   @IBAction func drawUpwordsAction(sender: AnyObject) {
+    drawingArea.changeWidth()
   }
   @IBAction func drawDownwordsAction(sender: AnyObject) {
   }

@@ -180,6 +180,7 @@
                         <outlet property="drawLeftButton" destination="tGQ-9J-puF" id="jr9-Ra-ZUe"/>
                         <outlet property="drawRightButton" destination="0I5-uK-o7k" id="bXx-bF-X88"/>
                         <outlet property="drawUpwordsButton" destination="buI-la-gvA" id="696-2D-HN1"/>
+                        <outlet property="drawingArea" destination="X0T-Vf-u0S" id="1mi-BE-3xb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
