@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		59B354011C1095AE003E82B1 /* DrawingArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B354001C1095AE003E82B1 /* DrawingArea.swift */; };
 		59E062F81C0C910800E21B71 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 59E062F41C0C910800E21B71 /* LaunchScreen.storyboard */; };
 		59E062F91C0C910800E21B71 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 59E062F61C0C910800E21B71 /* Main.storyboard */; };
 		B4AA22581BECBD5D00A41415 /* TurndrawTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AA22571BECBD5D00A41415 /* TurndrawTests.swift */; };
@@ -34,6 +35,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		59B354001C1095AE003E82B1 /* DrawingArea.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawingArea.swift; sourceTree = "<group>"; };
 		59E062F51C0C910800E21B71 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		59E062F71C0C910800E21B71 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B4AA223F1BECBD5D00A41415 /* Turndraw.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Turndraw.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -74,6 +76,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		59B353FF1C10945A003E82B1 /* components */ = {
+			isa = PBXGroup;
+			children = (
+				59B354001C1095AE003E82B1 /* DrawingArea.swift */,
+			);
+			path = components;
+			sourceTree = "<group>";
+		};
 		59E062F31C0C90EF00E21B71 /* ui */ = {
 			isa = PBXGroup;
 			children = (
@@ -154,6 +164,7 @@
 			isa = PBXGroup;
 			children = (
 				B4AA22751BECBE0B00A41415 /* model */,
+				59B353FF1C10945A003E82B1 /* components */,
 			);
 			path = classes;
 			sourceTree = "<group>";
@@ -306,6 +317,7 @@
 			files = (
 				B4AA227B1BECBE0B00A41415 /* ViewController.swift in Sources */,
 				B4AA22791BECBE0B00A41415 /* AppDelegate.swift in Sources */,
+				59B354011C1095AE003E82B1 /* DrawingArea.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -451,6 +463,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.keeward.Turndraw;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -462,6 +475,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.keeward.Turndraw;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
