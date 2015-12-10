@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5900D9CD1C19899A009426F1 /* LinearInterpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5900D9CC1C19899A009426F1 /* LinearInterpView.swift */; };
+		5909D6C71C19B52C00C01C63 /* BezierInterpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5909D6C61C19B52C00C01C63 /* BezierInterpView.swift */; };
 		59B354011C1095AE003E82B1 /* DrawingArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B354001C1095AE003E82B1 /* DrawingArea.swift */; };
 		59E062F81C0C910800E21B71 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 59E062F41C0C910800E21B71 /* LaunchScreen.storyboard */; };
 		59E062F91C0C910800E21B71 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 59E062F61C0C910800E21B71 /* Main.storyboard */; };
@@ -37,6 +38,7 @@
 
 /* Begin PBXFileReference section */
 		5900D9CC1C19899A009426F1 /* LinearInterpView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinearInterpView.swift; sourceTree = "<group>"; };
+		5909D6C61C19B52C00C01C63 /* BezierInterpView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BezierInterpView.swift; sourceTree = "<group>"; };
 		59B354001C1095AE003E82B1 /* DrawingArea.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawingArea.swift; sourceTree = "<group>"; };
 		59E062F51C0C910800E21B71 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		59E062F71C0C910800E21B71 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 			children = (
 				59B354001C1095AE003E82B1 /* DrawingArea.swift */,
 				5900D9CC1C19899A009426F1 /* LinearInterpView.swift */,
+				5909D6C61C19B52C00C01C63 /* BezierInterpView.swift */,
 			);
 			path = components;
 			sourceTree = "<group>";
@@ -321,6 +324,7 @@
 				B4AA227B1BECBE0B00A41415 /* ViewController.swift in Sources */,
 				5900D9CD1C19899A009426F1 /* LinearInterpView.swift in Sources */,
 				B4AA22791BECBE0B00A41415 /* AppDelegate.swift in Sources */,
+				5909D6C71C19B52C00C01C63 /* BezierInterpView.swift in Sources */,
 				59B354011C1095AE003E82B1 /* DrawingArea.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
