@@ -13,6 +13,7 @@
 		59B354011C1095AE003E82B1 /* DrawingArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B354001C1095AE003E82B1 /* DrawingArea.swift */; };
 		59E062F81C0C910800E21B71 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 59E062F41C0C910800E21B71 /* LaunchScreen.storyboard */; };
 		59E062F91C0C910800E21B71 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 59E062F61C0C910800E21B71 /* Main.storyboard */; };
+		5AE58134458039745248565D /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9E69F55879736A897FEC7BD /* Pods.framework */; };
 		B4AA22581BECBD5D00A41415 /* TurndrawTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AA22571BECBD5D00A41415 /* TurndrawTests.swift */; };
 		B4AA22631BECBD5D00A41415 /* TurndrawUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AA22621BECBD5D00A41415 /* TurndrawUITests.swift */; };
 		B4AA22791BECBE0B00A41415 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AA22711BECBE0B00A41415 /* AppDelegate.swift */; };
@@ -41,6 +42,7 @@
 		5900D9CC1C19899A009426F1 /* LinearInterpView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinearInterpView.swift; sourceTree = "<group>"; };
 		5909D6C61C19B52C00C01C63 /* BezierInterpView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BezierInterpView.swift; sourceTree = "<group>"; };
 		5909D6C81C19CEA100C01C63 /* SmoothedBIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmoothedBIView.swift; sourceTree = "<group>"; };
+		5909D6CF1C1ADD4500C01C63 /* Turndraw-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Turndraw-Bridging-Header.h"; sourceTree = "<group>"; };
 		59B354001C1095AE003E82B1 /* DrawingArea.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawingArea.swift; sourceTree = "<group>"; };
 		59E062F51C0C910800E21B71 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		59E062F71C0C910800E21B71 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -131,6 +133,7 @@
 				59E062F31C0C90EF00E21B71 /* ui */,
 				B4AA22771BECBE0B00A41415 /* viewControllers */,
 				B4AA224E1BECBD5D00A41415 /* Info.plist */,
+				5909D6CF1C1ADD4500C01C63 /* Turndraw-Bridging-Header.h */,
 			);
 			path = Turndraw;
 			sourceTree = "<group>";
@@ -424,6 +427,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "Turndraw/Turndraw-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 2;
 			};
@@ -462,6 +466,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "Turndraw/Turndraw-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 2;
 				VALIDATE_PRODUCT = YES;
 			};
