@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SVGgh
 
 public class DrawingArea: UIView {
   @IBOutlet weak var mainImageView: UIImageView!
@@ -78,6 +79,15 @@ public class DrawingArea: UIView {
     }
 
     samplePoints.removeAll(keepCapacity: false)
+
+
+    if let path = shapeLayer.path {
+      let zzzz = SVGPathGenerator.svgPathFromCGPath(path)
+      print(zzzz)
+      let xxxx = SVGPathGenerator.newCGPathFromSVGPath(zzzz!, whileApplyingTransform: CGAffineTransformMakeScale(1, 1))
+      shapeLayer.path = xxxx!.takeRetainedValue()
+    }
+
   }
 
 
