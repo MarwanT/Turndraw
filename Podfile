@@ -7,3 +7,4 @@ link_with 'Turndraw'
 
 use_frameworks!
 
+pod 'SVGgh'
