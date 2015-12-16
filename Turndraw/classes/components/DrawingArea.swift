@@ -39,6 +39,15 @@ public class DrawingArea: UIView {
     shapeLayer.drawsAsynchronously = true
 
     self.layer.insertSublayer(shapeLayer, atIndex: 0)
+
+    preloadDrawing()
+  }
+
+  private func preloadDrawing() {
+    if let svgString = Utilies.readFromDocument() {
+      let xxxx = SVGPathGenerator.newCGPathFromSVGPath(svgString, whileApplyingTransform: CGAffineTransformMakeScale(1, 1))
+      shapeLayer.path = xxxx!.takeRetainedValue()
+    }
   }
 
   public override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -84,8 +93,10 @@ public class DrawingArea: UIView {
     if let path = shapeLayer.path {
       let zzzz = SVGPathGenerator.svgPathFromCGPath(path)
       print(zzzz)
+      Utilies.writeToDocument(zzzz!)
       let xxxx = SVGPathGenerator.newCGPathFromSVGPath(zzzz!, whileApplyingTransform: CGAffineTransformMakeScale(1, 1))
       shapeLayer.path = xxxx!.takeRetainedValue()
+
     }
 
   }
