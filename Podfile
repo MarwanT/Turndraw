@@ -8,3 +8,4 @@ link_with 'Turndraw'
 use_frameworks!
 
 pod 'SVGgh'
+pod 'SVGKit', :git => 'https://github.com/SVGKit/SVGKit.git', :branch => '2.x'
