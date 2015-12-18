@@ -40,13 +40,18 @@ public class DrawingArea: UIView {
 
     self.layer.insertSublayer(shapeLayer, atIndex: 0)
 
-    preloadDrawing()
+//    preloadDrawing()
   }
 
   private func preloadDrawing() {
     if let svgString = Utilies.readFromDocument() {
       let xxxx = SVGPathGenerator.newCGPathFromSVGPath(svgString, whileApplyingTransform: CGAffineTransformMakeScale(1, 1))
-      shapeLayer.path = xxxx!.takeRetainedValue()
+//      shapeLayer.path = xxxx!.takeRetainedValue()
+
+//      let dir : NSString = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true).first!
+//      let path = "\(dir)/history.svg"
+//
+//      SVGPathGenerator.svgPathFromCGPath(<#T##aPath: CGPath##CGPath#>)
     }
   }
 
@@ -93,10 +98,9 @@ public class DrawingArea: UIView {
     if let path = shapeLayer.path {
       let zzzz = SVGPathGenerator.svgPathFromCGPath(path)
       print(zzzz)
-      Utilies.writeToDocument(zzzz!)
+      Utilies.writeToSVGFile(self.frame, svgPath: zzzz!)
       let xxxx = SVGPathGenerator.newCGPathFromSVGPath(zzzz!, whileApplyingTransform: CGAffineTransformMakeScale(1, 1))
       shapeLayer.path = xxxx!.takeRetainedValue()
-
     }
   }
 
