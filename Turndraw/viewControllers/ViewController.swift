@@ -41,6 +41,9 @@ class ViewController: UIViewController {
   @IBAction func drawDownwordsAction(sender: AnyObject) {
   }
 
+  @IBAction func resetButtonAction(sender: AnyObject) {
+    drawingArea.reset()
+  }
   
 }
 

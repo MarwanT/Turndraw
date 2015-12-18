@@ -98,7 +98,11 @@ public class DrawingArea: UIView {
       shapeLayer.path = xxxx!.takeRetainedValue()
 
     }
+  }
 
+  public func reset() {
+    shapeLayer.path = nil
+    Utilies.writeToDocument("")
   }
 
 
