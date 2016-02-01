@@ -81,6 +81,7 @@ public class DrawingArea: UIView {
     }
 
     samplePoints.removeAll(keepCapacity: false)
+    setNeedsDisplay()
 
 
     if let path = shapeLayer.path {
