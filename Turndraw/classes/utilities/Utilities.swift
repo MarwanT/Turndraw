@@ -57,82 +57,6 @@ extension Utilies {
     return nil
   }
 
-  public static func tryGit() {
-//    let fileManager = NSFileManager.defaultManager()
-//
-//    let appDocumentURL: NSURL! = fileManager.URLsForDirectory(NSSearchPathDirectory.DocumentDirectory, inDomains: NSSearchPathDomainMask.AllDomainsMask).first
-//    let localDrawingURL: NSURL! = NSURL(string: "history.svg")
-//
-//    let filePath: String = "\(appDocumentURL.path!)/\(localDrawingURL.path!)"
-//
-//    let filePathURL = NSURL(string: filePath)
-//    print(filePathURL?.path!)
-//
-//    do {
-//      let repo = try GTRepository(URL: appDocumentURL); print("=> REPO")
-//      let index = try repo.index(); print("=> INDEX: \(index)")
-//
-//      let branches = try repo.branches(); print("=> BRANCHES")
-//
-//      try index.addFile("history.svg"); print("=> ADD FILE")
-//
-////      for entry in index.entries {
-////        print("ENTRY: \(entry)")
-////        let indexEntry:GTIndexEntry = entry as! GTIndexEntry
-////        print("==> STAGED: \(indexEntry.staged)")
-////      }
-//
-//      let tree = try index.writeTree(); print("=> TREE")
-//
-////      for entry in index.entries {
-////        print("ENTRY: \(entry)")
-////        let indexEntry:GTIndexEntry = entry as! GTIndexEntry
-////        print("==> STAGED: \(indexEntry.staged)")
-////      }
-//
-//      try index.write()
-//
-//      //      let commit = try repo.createCommitWithTree(tree, message: "Initial Commit", parents: nil, updatingReferenceNamed: nil); print("=> CREATE COMMIT {\(commit)}")
-//
-//
-//    } catch {
-//      print("xxxxxxxxx ERROR xxxxxxxxx")
-//    }
-  }
-
-  public static func commitChanges(message: String) {
-//    let fileManager = NSFileManager.defaultManager()
-//
-//    let repoURL: NSURL! = fileManager.URLsForDirectory(NSSearchPathDirectory.DocumentDirectory,
-//      inDomains: NSSearchPathDomainMask.AllDomainsMask).first
-//    do {
-//      let repo = try GTRepository(URL: repoURL);
-//      let index = try repo.index();
-//
-////      for entry in index.entries {
-////        print("ENTRY: \(entry)")
-////        let indexEntry:GTIndexEntry = entry as! GTIndexEntry
-////        print("==> STAGED: \(indexEntry.staged)")
-////      }
-//
-//      try index.addFile(fileName);
-//
-//      try index.write()
-//      let tree = try index.writeTree()
-////      for entry in tree.entries! {
-////        print("=> TREE ENTRY: \(entry)")
-////      }
-//
-//      let commit = try repo.createCommitWithTree(tree, message: message,
-//        parents: nil,
-//        updatingReferenceNamed: "refs/heads/master");
-//      
-//    } catch {
-//      print("xxxxxxxxx ERROR xxxxxxxxx")
-//    }
-//    
-  }
-
   public static func initGit() {
     let fileManager = NSFileManager.defaultManager()
 
@@ -140,12 +64,12 @@ extension Utilies {
     let localDrawingURL: NSURL! = NSURL(string: fileName)
 
     let filePath: String = "\(appDocumentURL.path!)/\(localDrawingURL.path!)"
+    print("File Path = \(filePath)")
 
     if !fileManager.fileExistsAtPath(filePath) {
       fileManager.createFileAtPath(filePath, contents: nil, attributes: nil)
       do {
         let url = appDocumentURL
-        print("Git Repo: \(url.path!)")
 
         // 1. Init repository
         let repo = try GTRepository.initializeEmptyRepositoryAtFileURL(url, options: nil)
@@ -171,4 +95,37 @@ extension Utilies {
       }
     }
   }
+
+  public static func commitModifications() {
+    let fileManager = NSFileManager.defaultManager()
+    let appDocumentURL: NSURL! = fileManager.URLsForDirectory(NSSearchPathDirectory.DocumentDirectory,
+      inDomains: NSSearchPathDomainMask.AllDomainsMask).first
+
+    do {
+      let repo = try GTRepository(URL: appDocumentURL);
+
+      // 2. Get index
+      let index = try repo.index();
+
+      // 3. Add File
+      try index.addFile(fileName);
+
+      // 4. Write changes to current indexx
+      try index.write()
+
+      // 5. Get the current tree
+      let tree = try index.writeTree()
+
+      let head = try repo.headReference()
+      let parentCommit = try repo.lookUpObjectByOID(head.targetOID) as! GTCommit
+
+      // 6. Commit
+      try repo.createCommitWithTree(tree, message: "Bezier Path Drawn",
+        parents: [parentCommit],
+        updatingReferenceNamed: "refs/heads/master");
+    } catch {
+      print("Error Committing")
+    }
+  }
+
 }

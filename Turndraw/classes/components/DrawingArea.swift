@@ -102,6 +102,8 @@ public class DrawingArea: UIView {
       let xxxx = SVGPathGenerator.newCGPathFromSVGPath(zzzz!, whileApplyingTransform: CGAffineTransformMakeScale(1, 1))
       shapeLayer.path = xxxx!.takeRetainedValue()
     }
+
+    saveSSVGFileModifications()
   }
 
   public func reset() {
@@ -148,5 +150,9 @@ public class DrawingArea: UIView {
 
   public func changeWidth() {
     shapeLayer.lineWidth += 2
+  }
+
+  public func saveSSVGFileModifications() {
+    Utilies.commitModifications()
   }
 }
