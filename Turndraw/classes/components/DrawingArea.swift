@@ -40,19 +40,7 @@ public class DrawingArea: UIView {
 
     self.layer.insertSublayer(shapeLayer, atIndex: 0)
 
-//    preloadDrawing()
-  }
-
-  private func preloadDrawing() {
-    if let svgString = Utilies.readFromDocument() {
-      let xxxx = SVGPathGenerator.newCGPathFromSVGPath(svgString, whileApplyingTransform: CGAffineTransformMakeScale(1, 1))
-//      shapeLayer.path = xxxx!.takeRetainedValue()
-
-//      let dir : NSString = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true).first!
-//      let path = "\(dir)/history.svg"
-//
-//      SVGPathGenerator.svgPathFromCGPath(<#T##aPath: CGPath##CGPath#>)
-    }
+    loadSVGFile()
   }
 
   public override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -97,7 +85,6 @@ public class DrawingArea: UIView {
 
     if let path = shapeLayer.path {
       let zzzz = SVGPathGenerator.svgPathFromCGPath(path)
-      print(zzzz)
       Utilies.writeToSVGFile(self.frame, svgPath: zzzz!)
       let xxxx = SVGPathGenerator.newCGPathFromSVGPath(zzzz!, whileApplyingTransform: CGAffineTransformMakeScale(1, 1))
       shapeLayer.path = xxxx!.takeRetainedValue()
@@ -150,6 +137,21 @@ public class DrawingArea: UIView {
 
   public func changeWidth() {
     shapeLayer.lineWidth += 2
+  }
+
+  public func undo() {
+    Utilies.resetHardLastCommit()
+    loadSVGFile()
+  }
+
+  public func loadSVGFile() {
+    if let svgPathString = Utilies.readPathFromSVGFile() {
+      let svgSGPath = SVGPathGenerator.newCGPathFromSVGPath(svgPathString,
+        whileApplyingTransform: CGAffineTransformMakeScale(1, 1))
+      shapeLayer.path = svgSGPath!.takeRetainedValue()
+    } else {
+      shapeLayer.path = nil
+    }
   }
 
   public func saveSSVGFileModifications() {

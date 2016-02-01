@@ -32,11 +32,12 @@ class ViewController: UIViewController {
   }
 
   @IBAction func drawLeftAction(sender: AnyObject) {
+    drawingArea.changeWidth()
   }
   @IBAction func drawRightAction(sender: AnyObject) {
   }
   @IBAction func drawUpwordsAction(sender: AnyObject) {
-    drawingArea.changeWidth()
+    drawingArea.undo()
   }
   @IBAction func drawDownwordsAction(sender: AnyObject) {
   }

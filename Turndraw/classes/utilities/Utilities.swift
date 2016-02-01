@@ -15,6 +15,12 @@ public class Utilies {
 }
 
 extension Utilies {
+  enum SavingError: ErrorType {
+    case CouldNotExtractSVGFile
+  }
+}
+
+extension Utilies {
   static var fileName: String {
     return "history.svg"
   }
@@ -42,6 +48,21 @@ extension Utilies {
     writeToDocument(fileContent)
   }
 
+  public static func readPathFromSVGFile() -> String? {
+    if let svgString = Utilies.readFromDocument() {
+      do {
+        let svgPath = try svgPathFromSVGString(svgString)
+        return svgPath
+      } catch SavingError.CouldNotExtractSVGFile {
+        print("CouldNotExtractSVGFile")
+      } catch {
+        print("CouldNotExtractSVGFile")
+      }
+    }
+
+    return nil
+  }
+
   public static func readFromDocument() -> String? {
     if let dir : NSString = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true).first {
       let path = "\(dir)/\(fileName)";
@@ -55,6 +76,16 @@ extension Utilies {
     }
 
     return nil
+  }
+
+  public static func svgPathFromSVGString(svgString: String?) throws -> String {
+    if let svgString = svgString,
+    let startSVGPathIndex = svgString.rangeOfString("d=\"")?.endIndex,
+    let endSVGPathIndex = svgString.rangeOfString("\" /> </svg>")?.startIndex {
+      return svgString.substringWithRange(Range.init(start: startSVGPathIndex, end: endSVGPathIndex))
+    }
+
+    throw SavingError.CouldNotExtractSVGFile
   }
 
   public static func initGit() {
@@ -125,6 +156,23 @@ extension Utilies {
         updatingReferenceNamed: "refs/heads/master");
     } catch {
       print("Error Committing")
+    }
+  }
+
+  public static func resetHardLastCommit() {
+    let fileManager = NSFileManager.defaultManager()
+    let appDocumentURL: NSURL! = fileManager.URLsForDirectory(NSSearchPathDirectory.DocumentDirectory,
+      inDomains: NSSearchPathDomainMask.AllDomainsMask).first
+
+    do {
+      let repo = try GTRepository(URL: appDocumentURL);
+      let head = try repo.headReference()
+      let lastCommit = try repo.lookUpObjectByOID(head.targetOID) as! GTCommit
+      if let parentCommit = lastCommit.parents.last as? GTCommit {
+        try repo.resetToCommit(parentCommit, resetType: GTRepositoryResetType.Hard)
+      }
+    } catch {
+      print("Error Resetting")
     }
   }
 
