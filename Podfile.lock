@@ -1,4 +1,5 @@
 PODS:
+  - Cartography (0.6.0)
   - CocoaLumberjack (2.2.0):
     - CocoaLumberjack/Default (= 2.2.0)
     - CocoaLumberjack/Extensions (= 2.2.0)
@@ -12,6 +13,7 @@ PODS:
     - CocoaLumberjack (~> 2.x)
 
 DEPENDENCIES:
+  - Cartography
   - SVGgh
   - SVGKit (from `https://github.com/SVGKit/SVGKit.git`, branch `2.x`)
 
@@ -26,6 +28,7 @@ CHECKOUT OPTIONS:
     :git: https://github.com/SVGKit/SVGKit.git
 
 SPEC CHECKSUMS:
+  Cartography: 70af183a248547694a8cfaa6b989cb7e04589985
   CocoaLumberjack: 17fe8581f84914d5d7e6360f7c70022b173c3ae0
   SVGgh: 770e25ffa6abe6a4c64230cf383f6044cfb7956e
   SVGKit: 9c3f82b4405aca2dc4d9f307050ede8a6a92d052
