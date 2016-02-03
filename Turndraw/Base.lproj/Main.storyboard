@@ -126,29 +126,7 @@
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X0T-Vf-u0S" customClass="DrawingArea" customModule="Turndraw" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="470"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ySn-Q3-CsP" userLabel="mainImage">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="470"/>
-                                    </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gda-3R-a4t" userLabel="tempDrawImage">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="470"/>
-                                    </imageView>
-                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstItem="gda-3R-a4t" firstAttribute="leading" secondItem="ySn-Q3-CsP" secondAttribute="leading" id="7MQ-Qk-ZTM"/>
-                                    <constraint firstItem="gda-3R-a4t" firstAttribute="bottom" secondItem="ySn-Q3-CsP" secondAttribute="bottom" id="BOk-R5-aFF"/>
-                                    <constraint firstItem="gda-3R-a4t" firstAttribute="top" secondItem="ySn-Q3-CsP" secondAttribute="top" id="Enw-N1-rwH"/>
-                                    <constraint firstItem="ySn-Q3-CsP" firstAttribute="leading" secondItem="X0T-Vf-u0S" secondAttribute="leading" id="JQy-6C-oh9"/>
-                                    <constraint firstItem="ySn-Q3-CsP" firstAttribute="top" secondItem="X0T-Vf-u0S" secondAttribute="top" id="JRu-ql-KAk"/>
-                                    <constraint firstAttribute="bottom" secondItem="ySn-Q3-CsP" secondAttribute="bottom" id="UbF-7s-Dgh"/>
-                                    <constraint firstItem="gda-3R-a4t" firstAttribute="trailing" secondItem="ySn-Q3-CsP" secondAttribute="trailing" id="krk-cr-tAM"/>
-                                    <constraint firstItem="ySn-Q3-CsP" firstAttribute="trailing" secondItem="X0T-Vf-u0S" secondAttribute="trailing" id="mgK-Mz-Ldz"/>
-                                </constraints>
-                                <connections>
-                                    <outlet property="mainImageView" destination="ySn-Q3-CsP" id="BKv-Jo-WXF"/>
-                                    <outlet property="tempImageView" destination="gda-3R-a4t" id="8ld-bU-JHj"/>
-                                </connections>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bci-W0-Ldu">
                                 <rect key="frame" x="281" y="10" width="39" height="30"/>

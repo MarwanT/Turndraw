@@ -28,7 +28,7 @@ extension Utilies {
   public static func writeToDocument(text: String) {
     if let dir : NSString = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true).first {
       let path = "\(dir)/\(fileName)";
-      print(path)
+//      print(path)
 
       //writing
       do {
@@ -43,7 +43,7 @@ extension Utilies {
 
     let fileContent = String(format:svgTemplate, bounds.origin.x, bounds.origin.y, bounds.size.width, bounds.size.height, bounds.size.height, bounds.size.width, svgPath)
 
-    print(fileContent)
+//    print(fileContent)
 
     writeToDocument(fileContent)
   }
@@ -95,7 +95,7 @@ extension Utilies {
     let localDrawingURL: NSURL! = NSURL(string: fileName)
 
     let filePath: String = "\(appDocumentURL.path!)/\(localDrawingURL.path!)"
-    print("File Path = \(filePath)")
+//    print("File Path = \(filePath)")
 
     if !fileManager.fileExistsAtPath(filePath) {
       fileManager.createFileAtPath(filePath, contents: nil, attributes: nil)

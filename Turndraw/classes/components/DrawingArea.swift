@@ -8,40 +8,18 @@
 
 import UIKit
 import SVGgh
+import Cartography
 
-public class DrawingArea: UIView {
-  @IBOutlet weak var mainImageView: UIImageView!
-  @IBOutlet weak var tempImageView: UIImageView!
+public protocol CanvasViewDelegate {
+  func canvasViewDidEndDrawing(bezierPath: UIBezierPath)
+}
 
-  var drawImage: UIImage?
-
+public class CanvasView: UIView {
   var samplePoints = [CGPoint]()
 
-  let shapeLayer = CAShapeLayer()
+  var delegate: CanvasViewDelegate?
 
   var lastBezierPath: UIBezierPath?
-
-
-  public override func awakeFromNib() {
-    super.awakeFromNib()
-    // Init here
-    mainImageView.hidden = true
-    tempImageView.hidden = true
-
-    shapeLayer.fillColor = UIColor.clearColor().CGColor;
-    shapeLayer.shouldRasterize = true
-    shapeLayer.rasterizationScale = UIScreen.mainScreen().scale
-    shapeLayer.contentsScale = UIScreen.mainScreen().scale
-    shapeLayer.lineWidth = 3
-    shapeLayer.strokeColor = UIColor.redColor().CGColor
-    shapeLayer.borderWidth = 3
-    shapeLayer.borderColor = UIColor.blackColor().CGColor
-    shapeLayer.drawsAsynchronously = true
-
-    self.layer.insertSublayer(shapeLayer, atIndex: 0)
-
-    loadSVGFile()
-  }
 
   public override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
     if let touch = touches.first {
@@ -59,53 +37,13 @@ public class DrawingArea: UIView {
   }
 
   public override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-//    UIGraphicsBeginImageContextWithOptions(bounds.size, false, 0)
-//
-//    drawViewHierarchyInRect(bounds, afterScreenUpdates: true)
-//    drawImage = UIGraphicsGetImageFromCurrentImageContext()
-//
-//    UIGraphicsEndImageContext()
-
-
-    if let drawnPath = shapeLayer.path,
-    let lastBezierPath = lastBezierPath {
-      let tempBezierPath = UIBezierPath(CGPath: drawnPath)
-      tempBezierPath.appendPath(lastBezierPath)
-      shapeLayer.path = tempBezierPath.CGPath
-      shapeLayer.lineWidth = tempBezierPath.lineWidth
-      shapeLayer.lineWidth = 3
-      shapeLayer.borderWidth = 3
-      shapeLayer.borderColor = UIColor.blackColor().CGColor
-    } else {
-      shapeLayer.path = lastBezierPath?.CGPath
-    }
-
-    samplePoints.removeAll(keepCapacity: false)
+    print("NUMBER OF POINTS FOR BEZIER: \(samplePoints.count)")
+    self.samplePoints.removeAll(keepCapacity: false)
+    delegate?.canvasViewDidEndDrawing(lastBezierPath!)
     setNeedsDisplay()
-
-
-    if let path = shapeLayer.path {
-      let zzzz = SVGPathGenerator.svgPathFromCGPath(path)
-      Utilies.writeToSVGFile(self.frame, svgPath: zzzz!)
-      let xxxx = SVGPathGenerator.newCGPathFromSVGPath(zzzz!, whileApplyingTransform: CGAffineTransformMakeScale(1, 1))
-      shapeLayer.path = xxxx!.takeRetainedValue()
-    }
-
-    saveSSVGFileModifications()
   }
 
-  public func reset() {
-    shapeLayer.path = nil
-    Utilies.writeToDocument("")
-  }
-
-
-  func getMidPointFromA(a: CGPoint, b: CGPoint) -> CGPoint {
-    return CGPoint(x: (a.x+b.x)/2.0, y: (a.y+b.y)/2.0)
-  }
-
-  public override func drawRect(rect: CGRect)
-  {
+  public override func drawRect(rect: CGRect) {
     let context = UIGraphicsGetCurrentContext()
     CGContextSetAllowsAntialiasing(context, true)
     CGContextSetShouldAntialias(context, true)
@@ -116,8 +54,6 @@ public class DrawingArea: UIView {
     path.lineJoinStyle = CGLineJoin.Round
     path.lineCapStyle = CGLineCap.Round
     path.lineWidth = 3
-
-//    drawImage?.drawInRect(bounds)
 
     if samplePoints.count > 0 {
       path.moveToPoint(samplePoints.first!)
@@ -136,8 +72,99 @@ public class DrawingArea: UIView {
     }
   }
 
+  func getMidPointFromA(a: CGPoint, b: CGPoint) -> CGPoint {
+    return CGPoint(x: (a.x+b.x)/2.0, y: (a.y+b.y)/2.0)
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+public class DrawingArea: UIView, CanvasViewDelegate {
+
+  let mainShapeLayer = CAShapeLayer()
+  let drawingView = CanvasView(frame: CGRectZero)
+
+  public override func awakeFromNib() {
+    super.awakeFromNib()
+
+    drawingView.delegate = self
+    drawingView.backgroundColor = UIColor.clearColor()
+    self.addSubview(drawingView)
+
+    constrain(self, drawingView) { (parent, drawingView) -> () in
+      drawingView.top == parent.top
+      drawingView.left == parent.left
+      drawingView.right == parent.right
+      drawingView.bottom == parent.bottom
+    }
+
+    mainShapeLayer.fillColor = UIColor.clearColor().CGColor;
+    mainShapeLayer.shouldRasterize = true
+    mainShapeLayer.rasterizationScale = UIScreen.mainScreen().scale
+    mainShapeLayer.contentsScale = UIScreen.mainScreen().scale
+    mainShapeLayer.lineWidth = 3
+    mainShapeLayer.strokeColor = UIColor.redColor().CGColor
+    mainShapeLayer.borderWidth = 3
+    mainShapeLayer.borderColor = UIColor.blackColor().CGColor
+    mainShapeLayer.drawsAsynchronously = true
+    mainShapeLayer.opaque = true
+
+    self.layer.insertSublayer(mainShapeLayer, atIndex: 0)
+
+    loadSVGFile()
+
+    self.clipsToBounds = true
+  }
+
+  public func canvasViewDidEndDrawing(bezierPath: UIBezierPath) {
+    let saveChanges = { (path: CGPath?) -> Void in
+      if let path = path {
+        let svgPath = SVGPathGenerator.svgPathFromCGPath(path)
+        Utilies.writeToSVGFile(self.frame, svgPath: svgPath!)
+        self.saveSSVGFileModifications()
+      }
+    }
+
+    if let mainCGPath = mainShapeLayer.path {
+      let mainCGBezierPath = UIBezierPath(CGPath: mainCGPath)
+      dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), { () -> Void in
+        mainCGBezierPath.appendPath(bezierPath)
+
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+          self.mainShapeLayer.path = mainCGBezierPath.CGPath
+          self.mainShapeLayer.lineWidth = bezierPath.lineWidth
+          self.mainShapeLayer.lineWidth = 3
+          self.mainShapeLayer.borderWidth = 3
+          self.mainShapeLayer.borderColor = UIColor.blackColor().CGColor
+        })
+
+        saveChanges(mainCGBezierPath.CGPath)
+      })
+    } else {
+      mainShapeLayer.path = bezierPath.CGPath
+      dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0),
+        { () -> Void in
+          saveChanges(self.mainShapeLayer.path)
+      })
+    }
+  }
+
+  public func reset() {
+    //    shapeLayer.path = nil
+    Utilies.writeToDocument("")
+  }
+
   public func changeWidth() {
-    shapeLayer.lineWidth += 2
+    mainShapeLayer.lineWidth += 2
   }
 
   public func undo() {
@@ -149,9 +176,9 @@ public class DrawingArea: UIView {
     if let svgPathString = Utilies.readPathFromSVGFile() {
       let svgSGPath = SVGPathGenerator.newCGPathFromSVGPath(svgPathString,
         whileApplyingTransform: CGAffineTransformMakeScale(1, 1))
-      shapeLayer.path = svgSGPath!.takeRetainedValue()
+      mainShapeLayer.path = svgSGPath!.takeRetainedValue()
     } else {
-      shapeLayer.path = nil
+      mainShapeLayer.path = nil
     }
   }
 
