@@ -37,7 +37,6 @@ public class CanvasView: UIView {
   }
 
   public override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-    print("NUMBER OF POINTS FOR BEZIER: \(samplePoints.count)")
     self.samplePoints.removeAll(keepCapacity: false)
     delegate?.canvasViewDidEndDrawing(lastBezierPath!)
     setNeedsDisplay()
@@ -146,6 +145,8 @@ public class DrawingArea: UIView, CanvasViewDelegate {
           self.mainShapeLayer.borderWidth = 3
           self.mainShapeLayer.borderColor = UIColor.blackColor().CGColor
         })
+
+        print("BEZIER PATH ELEMENTS NUMBER = \(mainCGBezierPath.count())")
 
         saveChanges(mainCGBezierPath.CGPath)
       })
